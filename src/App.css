@@ -1,15 +1,26 @@
 .App {
   text-align: center;
   margin: 30px auto;
-  color: white;
+  color: rgb(0, 183, 255);
+}
+.header {
+  margin: 50px;
+  height: 80px;
 }
 
-.board {
-  width: 700px;
+.container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+.board {
+  width: 750px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
 }
 
 .black {
@@ -20,6 +31,12 @@
 
 .red {
   background-color: black;
+  width: 70px;
+  height: 70px;
+}
+
+.move {
+  background-color: rgb(115, 206, 248);
   width: 70px;
   height: 70px;
 }
