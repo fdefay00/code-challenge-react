@@ -22,22 +22,30 @@ export default function Board() {
     //blocking
     if (blocking) {
       if (board[i][j] === "Ⓜ️") {
+        console.log("blc, M");
         setMoving(false);
         placeKnight(i, j, board);
         return setMessage("Move successful");
       }
       if (board[i][j] === "🔒") {
-        if (moving) return setMessage("This position is blocked");
-        else block(i, j);
+        console.log("blc, C");
+        if (moving) return setMessage("Pick a valid location to move knight");
+        // else block(i, j);
       }
       if (board[i][j] === null) {
-        block(i, j);
+        console.log("blc, N");
+        return block(i, j);
       }
       if (board[i][j]?.type === "img") {
-        if (!moving) showAvailableSpot();
         if (moving) {
           setMoving(false);
           placeKnight(i, j, board);
+          return setMessage("Move Cancelled! Click on Knight to move");
+        } else {
+          console.log(`blokin and img`);
+          setMoving(true);
+          setMessage("Pick a valid location to move knight");
+          showAvailableSpot();
         }
 
         return;
@@ -49,26 +57,27 @@ export default function Board() {
       if (board[i][j] === "Ⓜ️") {
         placeKnight(i, j);
         setMoving(false);
-        return setMessage("Move successful");
+        return setMessage("Move successful! Click on knight to move");
       }
       if (board[i][j] === "🔒") {
-        return setMessage("This position is blocked");
+        return setMessage("Pick a valid location to move knight");
       }
       if (board[i][j] === null) {
         setMoving(false);
         placeKnight(currentPosition[0], currentPosition[1]);
-        return setMessage("Move Cancelled");
+        return setMessage("Move Cancelled! Click on Knight to move");
       }
       if (board[i][j]?.type === "img") {
         setMoving(false);
         placeKnight(currentPosition[0], currentPosition[1]);
-        return setMessage("Move Cancelled");
+        return setMessage("Move Cancelled! Click on Knight to move");
       }
     }
 
     //click on chess piece
     if (board[i][j]?.type === "img") {
       setMoving(true);
+      setMessage("Pick a valid location to move knight");
       showAvailableSpot(i, j, board);
     }
 
@@ -97,8 +106,8 @@ export default function Board() {
   function placeKnight(i, j) {
     setCurrentPosition([i, j]);
     const board = createBoard(size);
-    drawBoard(i, j, img, board);
     currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
+    drawBoard(i, j, img, board);
     setBoard(board);
   }
 
@@ -113,16 +122,8 @@ export default function Board() {
     return board;
   }
 
-  // function designBoard() {
-  //   if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
-  //   openMoves.forEach((position) => drawBoard(position[0], position[1], "Ⓜ️", board));
-  //   currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
-  // }
-
   function showAvailableSpot() {
-    // setMoving(true);
     const board = createBoard(size);
-
     const openMoves = [];
     const i = currentPosition[0];
     const j = currentPosition[1];
@@ -136,15 +137,10 @@ export default function Board() {
     openMoves.push([i - 1, j - 2]);
     setOpenMoves(openMoves);
     openMoves.forEach((position) => drawBoard(position[0], position[1], "Ⓜ️", board));
-    if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
     currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
+    if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
     setBoard(board);
   }
-
-  // function moveToChosenSpot(i, j) {
-  //   placeKnight(i, j);
-  //   setMoving(false);
-  // }
 
   function block(i, j) {
     const board = createBoard(size);
@@ -158,6 +154,7 @@ export default function Board() {
     currentBlocks.push([i + 1, j - 1]);
     currentBlocks.push([i - 1, j + 1]);
     currentBlocks.push([i - 1, j - 1]);
+    if (moving) openMoves.forEach((position) => drawBoard(position[0], position[1], "Ⓜ️", board));
     currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
     if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
     setCurrentBlocks(currentBlocks);
@@ -166,6 +163,7 @@ export default function Board() {
 
   function unblock() {
     setBlocking(false);
+    setCurrentBlocks([]);
     const board = createBoard(size);
     if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
     if (moving) openMoves.forEach((position) => drawBoard(position[0], position[1], "Ⓜ️", board));
