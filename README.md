@@ -4,8 +4,8 @@ The knight Should be able to visit any space that is not blocked.
 First, build an array of open space (`board[i][j] === null` based on my implementation)
 
 Find out how many moves is needed to get to open space:
-this could computed recursively
-from the destination position [di, dj], return an array of accessible positions (positions that can reach the desired position)
+This could computed recursively
+From the destination position [di, dj], return an array of accessible positions (positions that can reach the desired position)
 for each of those positions, repeat the process, adding 1 to the number of moves and keeping track of visited positions.
 
 Base case would be when the destination position is the starting
