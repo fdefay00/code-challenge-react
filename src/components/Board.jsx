@@ -62,6 +62,12 @@ export default function Board() {
     return board;
   }
 
+  // function designBoard() {
+  //   if (currentPosition) drawBoard(currentPosition[0], currentPosition[1], img, board);
+  //   openMoves.forEach((position) => drawBoard(position[0], position[1], "Ⓜ️", board));
+  //   currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
+  // }
+
   function showAvailableSpot() {
     setMoving(true);
     const board = createBoard(size);
