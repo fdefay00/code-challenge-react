@@ -1,5 +1,16 @@
 import React, { useState } from "react";
 
+function createBoard(size) {
+  const board = [];
+  for (let i = 0; i < size; i++) {
+    board[i] = Array(10);
+    for (let j = 0; j < size; j++) {
+      board[i][j] = null;
+    }
+  }
+  return board;
+}
+
 export default function Board() {
   const piece = {
     name: "knight",
@@ -30,7 +41,6 @@ export default function Board() {
       if (board[i][j] === "🔒") {
         console.log("blc, C");
         if (moving) return setMessage("Pick a valid location to move knight");
-        // else block(i, j);
       }
       if (board[i][j] === null) {
         console.log("blc, N");
@@ -42,10 +52,9 @@ export default function Board() {
           placeKnight(i, j, board);
           return setMessage("Move Cancelled! Click on Knight to move");
         } else {
-          console.log(`blokin and img`);
           setMoving(true);
           setMessage("Pick a valid location to move knight");
-          showAvailableSpot();
+          showAvailableSpots();
         }
 
         return;
@@ -78,37 +87,18 @@ export default function Board() {
     if (board[i][j]?.type === "img") {
       setMoving(true);
       setMessage("Pick a valid location to move knight");
-      showAvailableSpot(i, j, board);
+      showAvailableSpots(i, j, board);
     }
 
     //click on empty space
     if (board[i][j] === null) {
       if (currentPosition) {
         setMessage("Click on knight to move");
-        return; //placeKnight(i, j);
+        return;
       }
       setMessage("Click on knight to move");
       placeKnight(i, j, board);
     }
-  }
-
-  function createBoard(size) {
-    const board = [];
-    for (let i = 0; i < size; i++) {
-      board[i] = Array(10);
-      for (let j = 0; j < size; j++) {
-        board[i][j] = null;
-      }
-    }
-    return board;
-  }
-
-  function placeKnight(i, j) {
-    setCurrentPosition([i, j]);
-    const board = createBoard(size);
-    currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
-    drawBoard(i, j, img, board);
-    setBoard(board);
   }
 
   function drawBoard(l, k, value, board) {
@@ -122,7 +112,15 @@ export default function Board() {
     return board;
   }
 
-  function showAvailableSpot() {
+  function placeKnight(i, j) {
+    setCurrentPosition([i, j]);
+    const board = createBoard(size);
+    currentBlocks.forEach((position) => drawBoard(position[0], position[1], "🔒", board));
+    drawBoard(i, j, img, board);
+    setBoard(board);
+  }
+
+  function showAvailableSpots() {
     const board = createBoard(size);
     const openMoves = [];
     const i = currentPosition[0];
@@ -193,7 +191,6 @@ export default function Board() {
         <h1>Game ON!</h1>
         {currentPosition && blockButton}
         {blocking && <h5>Choose area to block knight</h5>}
-        {/*moving && <h5>Pick available spot to move piece</h5>*/}
         <h5>{message}</h5>
       </div>
       <div className="container">
@@ -202,59 +199,3 @@ export default function Board() {
     </>
   );
 }
-
-/*
- // moving && blocking
- if (moving && blocking) {
-  // setMoving(false);
-  if (board[i][j] === "🔒") {
-    return setMessage("This position is blocked");
-    // placeKnight(currentPosition[0], currentPosition[1]);
-  }
-  if (board[i][j] === null) {
-    // placeKnight(currentPosition[0], currentPosition[1]);
-    return setMessage("Move Cancelled");
-  }
-  if (board[i][j] === "Ⓜ️") {
-    placeKnight(i, j);
-    return setMessage("Move successful");
-  }
-}
-
-//setting move
-if (board[i][j]?.type === "img" && !blocking) {
-  setMoving(true);
-  if (moving) {
-    placeKnight(currentPosition[0], currentPosition[1]);
-    return setMessage("Move Cancelled");
-  }
-  return showAvailableSpot(i, j);
-}
-
-//moving
-if (moving) {
-  setMoving(false);
-  if (board[i][j] !== "Ⓜ️") {
-    placeKnight(currentPosition[0], currentPosition[1]);
-    return setMessage("Move Cancelled");
-  } else {
-    placeKnight(i, j);
-    setMessage("Move successful!");
-  }
-}
-
-//blocking
-if (blocking) {
-  block(i, j);
-}
-
-if (currentPosition && board[i][j] === null) {
-  return setMessage("Click on knight to move");
-}
-
-//placing
-if (!moving && board[i][j] === null) {
-  setMessage("Click on knight to move");
-  return placeKnight(i, j);
-}
-*/

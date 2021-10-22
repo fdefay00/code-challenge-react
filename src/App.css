@@ -35,8 +35,13 @@
   height: 70px;
 }
 
-.move {
-  background-color: rgb(115, 206, 248);
-  width: 70px;
-  height: 70px;
+button {
+  background-color: white;
+  border: 2px solid rgb(0, 183, 255);
+  color: rgb(0, 183, 255);
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
