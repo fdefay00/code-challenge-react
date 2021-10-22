@@ -5,11 +5,11 @@ First, build an array of open space (`board[i][j] === null` based on my implemen
 
 Find out how many moves is needed to get to open space:
 This could computed recursively
-From the destination position [di, dj], return an array of accessible positions (positions that can reach the desired position)
+From the destination position [di, dj], return an array of accessible positions (positions that can reach the desired destination)
 for each of those positions, repeat the process, adding 1 to the number of moves and keeping track of visited positions.
 
-Base case would be when the destination position is the starting
-If the number of move reaches the max number specified by the user before reaching the base case, then that destination position is not reachable in the set number of move.
+Base case would be when the destination position is the starting position
+If the number of move reaches the max number specified by the user before reaching the base case, then that destination position is not reachable within the set number of move.
 However, this method doesn't guarantee shortest path
 
 # hiring-code-challenge-react
