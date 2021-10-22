@@ -1,3 +1,17 @@
+# Step 6
+
+The knight Should be able to visit any space that is not blocked.
+First, build an array of open space (`board[i][j] === null` based on my implementation)
+
+Find out how many moves is needed to get to open space:
+this could computed recursively
+from the destination position [di, dj], return an array of accessible positions (positions that can reach the desired position)
+for each of those positions, repeat the process, adding 1 to the number of moves and keeping track of visited positions.
+
+Base case would be when the destination position is the starting
+If the number of move reaches the max number specified by the user before reaching the base case, then that destination position is not reachable in the set number of move.
+However, this method doesn't guarantee shortest path
+
 # hiring-code-challenge-react
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
