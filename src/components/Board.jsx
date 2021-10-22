@@ -27,23 +27,19 @@ export default function Board() {
 
   const img = <img src={piece.img} alt={piece.name} />;
   const size = 10;
-  console.log({ moving }, { blocking });
 
   function handleClick(i, j) {
     //blocking
     if (blocking) {
       if (board[i][j] === "Ⓜ️") {
-        console.log("blc, M");
         setMoving(false);
         placeKnight(i, j, board);
         return setMessage("Move successful");
       }
       if (board[i][j] === "🔒") {
-        console.log("blc, C");
         if (moving) return setMessage("Pick a valid location to move knight");
       }
       if (board[i][j] === null) {
-        console.log("blc, N");
         return block(i, j);
       }
       if (board[i][j]?.type === "img") {
@@ -56,11 +52,9 @@ export default function Board() {
           setMessage("Pick a valid location to move knight");
           showAvailableSpots();
         }
-
         return;
       }
     }
-
     //moving
     if (moving) {
       if (board[i][j] === "Ⓜ️") {
@@ -82,14 +76,12 @@ export default function Board() {
         return setMessage("Move Cancelled! Click on Knight to move");
       }
     }
-
     //click on chess piece
     if (board[i][j]?.type === "img") {
       setMoving(true);
       setMessage("Pick a valid location to move knight");
       showAvailableSpots(i, j, board);
     }
-
     //click on empty space
     if (board[i][j] === null) {
       if (currentPosition) {
